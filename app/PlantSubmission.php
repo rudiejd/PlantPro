@@ -11,7 +11,6 @@ use Illuminate\Database\Eloquent\Model;
  *   The primary key and the table are modified because we used upper case and singular
  *  table names at first so I wanted to stick with that convention
  */
-clas
 class PlantSubmission extends Model
 {
     protected $table = 'PlantSubmission';
