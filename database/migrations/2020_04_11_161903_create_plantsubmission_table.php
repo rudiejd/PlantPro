@@ -27,7 +27,7 @@ class CreatePlantsubmissionTable extends Migration
             $table->bigInteger('userId')->unsigned();
             $table->foreign('userId')->references('userId')->on('users');
             $table ->bigInteger('plantId')->unsigned();
-            $table->foreign('plantId')->references('plantId')->on('Plant'); m,
+            $table->foreign('plantId')->references('plantId')->on('Plant'); 
             $table->double('latitude');
             $table->double('longitude');
             $table->string('title');
