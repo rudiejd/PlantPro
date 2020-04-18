@@ -32,6 +32,7 @@ Route::delete('/plants/{id}', 'PlantController@destroy')->middleware('auth');
 
 //post
 Route::post('/submissions', 'PlantSubmissionController@store')->middleware('auth');
+Route::post('/submissions/{id}/upvote', 'PlantSubmissionController@upvote');
 // get
 Route::get('/submissions', 'PlantSubmissionController@index');
 Route::get('/submissions/create', 'PlantSubmissionController@create')->middleware('auth');

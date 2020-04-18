@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\PlantSubmission;
-
+use DB;
 
 /**
  * This is a controller, the "C" in MVC. It's used by our main routes file to
@@ -38,7 +39,6 @@ class PlantSubmissionController extends Controller
             $submissions = [];
         }
         $submissions = PlantSubmission::where('plantId', $id)->get();
-        $submissions = $submissions;
 
         // return the view with the data we got
         return view('submissions.show', compact('submissions', 'id'));
@@ -52,6 +52,27 @@ class PlantSubmissionController extends Controller
         return view('submissions.create');
     }
 
+    /** route for users to upvote an existing plant
+     *  @return redirect back to the submission page
+     *  
+     */
+    function upvote($id) {
+        $hasUpvoted = DB::select('SELECT EXISTS ( SELECT NULL FROM UserUpvotes WHERE userId = :uid AND plantSubmissionId = :pid ) AS res', ['uid' => Auth::id(), 'pid' => $id])[0];
+        // if the user has already upvoted the post, remove their upvote and redirect them
+        if ($hasUpvoted->res == 1) {
+            DB::delete('DELETE FROM UserUpvotes WHERE userId=:uid AND plantSubmissionId = :pid', ['uid' => Auth::id(), 'pid' => $id]);
+            DB::update('UPDATE PlantSubmission SET upvotes = :newUpvotes WHERE plantSubmissionId = :pid', ['newUpvotes' => (PlantSubmission::find($id)->upvotes) + -1, 'pid' => $id ]);
+            return redirect('/submissions/'.$id);
+        }
+        // otherwise insert the user Id and the plantsubmission id into the UserUpvotes table so we know the user has upvoted the plant
+        else {
+            DB::insert('INSERT INTO UserUpvotes (userId, plantSubmissionId) VALUES (:uid, :pid)', ['uid' => Auth::id(), 'pid' => $id]);
+            DB::update('UPDATE PlantSubmission SET upvotes = :newUpvotes WHERE plantSubmissionId = :pid', ['newUpvotes' => (PlantSubmission::find($id)->upvotes) + 1, 'pid' => $id ]);
+            return redirect('/submissions/'.$id);
+        }
+    }
+
+
     /** Route for storing a submission in the database (responds to post request)
     *   @return redirect to the create view with success/failure message
     *   TODO: figure out how to deal with failure/show different message
@@ -64,6 +85,7 @@ class PlantSubmissionController extends Controller
         $submission->longitude = request('longitude');
         $submission->title = request('title');
         $submission->description = request('description');
+        $submission->upvotes = 1;
         $submission->save();
         return redirect('/submissions/create')->with('msg', 'Successfully posted your plant sighting.');
     }
