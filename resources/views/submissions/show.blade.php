@@ -62,14 +62,7 @@ $comments = DB::table('Comment')->where('plantSubmissionId', '=', 1)->get();
         <div class="col-12">
         <div class="comments">
             <div class="comments-details">
-            <span class="total-comments comments-sort">117 Comments</span>
-            <span class="dropdown">
-                <button type="button" class="btn dropdown-toggle" data-toggle="dropdown">Sort By <span class="caret"></span></button>
-                <div class="dropdown-menu">
-                    <a href="#" class="dropdown-item">Top Comments</a>
-                <a href="#" class="dropdown-item">Newest First</a>
-                </div>
-            </span>     
+            <span class="total-comments comments-sort">{{sizeof($comments)}} Comments</span>  
             </div>
             <div class="comment-box add-comment">
                 <span class="mx-10 my-10">
@@ -86,31 +79,32 @@ $comments = DB::table('Comment')->where('plantSubmissionId', '=', 1)->get();
             </div>
 
             @foreach ($comments as $comment)
-                <div class="comment-box">
-                    <span class="mx-10 my-10">
-                        <a href="#">{{DB::table('users')->where('userId', $comment->userId)->first()->email  }}</a> <span class="comment-time">{{$comment->created_at}}</span>
-                    </span>       
-                    <p class="comment-txt more">{{$comment->body}}</p>
-                    <div class="comment-meta">
-                        <button class="comment-like"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i> 99</button>
-                        <button class="comment-dislike"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i> 149</button> 
-                        <button class="comment-reply reply-popup"><i class="fa fa-reply-all" aria-hidden="true"></i> Reply</button>         
-                    </div>
-                    <div class="comment-box add-comment reply-box">
-                        
+                @if ($comment->parentId == 0)
+                    <div class="comment-box">
                         <span class="mx-10 my-10">
-                        <form action="/comments" method="POST">
-                            @csrf
-                            <input name="plantSubmissionId" type="hidden" value="{{ $submission->plantSubmissionId }}" />
-                            <input name="userId" type="hidden" value="{{Auth::id()}}" />
-                            <input name="parentId" type="hidden" value="{{$comment->commentId}}" />
-                            <input name="body" type="text" />
-                            <button type="submit" class="btn btn-default">Reply</button>
-                            <button type="cancel" class="btn btn-default reply-popup">Cancel</button>
-                        </form>
-                        </span>
+                            <a href="#">{{DB::table('users')->where('userId', $comment->userId)->first()->email  }}</a> <span class="comment-time">{{$comment->created_at}}</span>
+                        </span>       
+                        <p class="comment-txt more">{{$comment->body}}</p>
+                        <div class="comment-meta">
+                            <button class="comment-like" type="submit">{{$comment->upvotes}}</button>
+                            <button class="comment-reply reply-popup"><i class="fa fa-reply-all" aria-hidden="true"></i> Reply</button>         
+                        </div>
+                        <div class="comment-box add-comment reply-box">
+                            
+                            <span class="mx-10 my-10">
+                            <form action="/comments" method="POST">
+                                @csrf
+                                <input name="plantSubmissionId" type="hidden" value="{{ $submission->plantSubmissionId }}" />
+                                <input name="userId" type="hidden" value="{{Auth::id()}}" />
+                                <input name="parentId" type="hidden" value="{{$comment->commentId}}" />
+                                <input name="body" type="text" />
+                                <button type="submit" class="btn btn-default">Reply</button>
+                                <button type="cancel" class="btn btn-default reply-popup">Cancel</button>
+                            </form>
+                            </span>
+                        </div>
                     </div>
-                </div>
+                @endif
                 @php
                     $children = DB::table('Comment')->where('parentId', $comment->commentId)->get();
                 @endphp
@@ -121,8 +115,7 @@ $comments = DB::table('Comment')->where('plantSubmissionId', '=', 1)->get();
                         </span>       
                         <p class="comment-txt more">{{$child->body}}</p>
                         <div class="comment-meta">
-                            <button class="comment-like"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i> 99</button>
-                            <button class="comment-dislike"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i> 149</button> 
+                            <button class="comment-like">{{$child->upvotes}}</button>
                             <button class="comment-reply reply-popup"><i class="fa fa-reply-all" aria-hidden="true"></i> Reply</button>         
                         </div>
                         <div class="comment-box add-comment reply-box">
