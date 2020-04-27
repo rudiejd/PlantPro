@@ -11,18 +11,20 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{asset('css/bootstrap.css')}}" rel="stylesheet">
+    <link href="{{asset('css/main.css')}}" rel="stylesheet">
+
 </head>
-<body>
-    <div id="app">
-    <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+<body class=>
+    <nav class="navbar navbar-dark navbar-expand-md bg-dark shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     PlantPro
@@ -74,9 +76,9 @@
             </div>
         </nav>
 
-        <main class="py-4">
+        <main role="main">
             @yield('content')
         </main>
-    </div>
+    
 </body>
 </html>
