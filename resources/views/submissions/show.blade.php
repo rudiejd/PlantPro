@@ -14,6 +14,7 @@ else {
     $userUpvoteImg = '../../img/upvote.jpg';
 }
 $submission = PlantSubmission::findOrFail($id);
+$comments = DB::table('Comment')->where('plantSubmissionId', '=', 1)->get();
 
 @endphp
 <script>
@@ -56,6 +57,7 @@ $submission = PlantSubmission::findOrFail($id);
         <div class="text-muted content-center text-center">
             {{$submission->description}}
         </div>
+
     <div class="row">
         <div class="col-12">
         <div class="comments">
@@ -70,64 +72,79 @@ $submission = PlantSubmission::findOrFail($id);
             </span>     
             </div>
             <div class="comment-box add-comment">
-            <span class="mx-10 my-10">
-                <input type="text" placeholder="Add a public comment" name="Add Comment">
-                <button type="submit" class="btn btn-default">Comment</button>
-                <button type="cancel" class="btn btn-default">Cancel</button>
-            </span>
-            </div>
-            <div class="comment-box">
-            <span class="mx-10 my-10">
-                <a href="#">User</a> <span class="comment-time">2 hours ago</span>
-            </span>       
-            <p class="comment-txt more">Suspendisse massa enim, condimentum sit amet maximus quis, pulvinar sit amet ante. Fusce eleifend dui mi, blandit vehicula orci iaculis ac.</p>
-            <div class="comment-meta">
-                <button class="comment-like"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i> 99</button>
-                <button class="comment-dislike"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i> 149</button> 
-                <button class="comment-reply reply-popup"><i class="fa fa-reply-all" aria-hidden="true"></i> Reply</button>         
-            </div>
-            <div class="comment-box add-comment reply-box">
                 <span class="mx-10 my-10">
-                <input type="text" placeholder="Add a public reply" name="Add Comment">
-                <button type="submit" class="btn btn-default">Reply</button>
-                <button type="cancel" class="btn btn-default reply-popup">Cancel</button>
+                    <form action="/comments" method="POST">
+                        @csrf
+                        <input name="plantSubmissionId" type="hidden" value="{{ $submission->plantSubmissionId }}" />
+                        <input name="userId" type="hidden" value="{{Auth::id()}}" />
+                        <input name="body" type="text" />
+                    
+                    <button type="submit" class="btn btn-default">Comment</button>
+                    <button type="cancel" class="btn btn-default">Cancel</button>
+                    </form>
                 </span>
             </div>
-            </div>
-            <div class="comment-box">
-            <span class="mx-10 my-10">
-                <a href="#">User</a> <span class="comment-time">2 hours ago</span>
-            </span>       
-            <p class="comment-txt more">Suspendisse massa enim, condimentum sit amet maximus quis, pulvinar sit amet ante. Fusce eleifend dui mi, blandit vehicula orci iaculis ac.</p>
-            <div class="comment-meta">
-                <button class="comment-like"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i> 99</button>
-                <button class="comment-dislike"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i> 149</button> 
-                <button class="comment-reply"><i class="fa fa-reply-all" aria-hidden="true"></i> Reply</button>         
-            </div>
-            <div class="comment-box replied">
-                <span class="mx-10 my-10">
-                    <a href="#">User</a> <span class="comment-time">2 hours ago</span>
-                </span>       
-                <p class="comment-txt more">Suspendisse massa enim, condimentum sit amet maximus quis, pulvinar sit amet ante. Fusce eleifend dui mi, blandit vehicula orci iaculis ac.</p>
-                <div class="comment-meta">
-                <button class="comment-like"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i> 99</button>
-                <button class="comment-dislike"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i> 149</button> 
-                <button class="comment-reply"><i class="fa fa-reply-all" aria-hidden="true"></i> Reply</button>         
+
+            @foreach ($comments as $comment)
+                <div class="comment-box">
+                    <span class="mx-10 my-10">
+                        <a href="#">{{DB::table('users')->where('userId', $comment->userId)->first()->email  }}</a> <span class="comment-time">{{$comment->created_at}}</span>
+                    </span>       
+                    <p class="comment-txt more">{{$comment->body}}</p>
+                    <div class="comment-meta">
+                        <button class="comment-like"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i> 99</button>
+                        <button class="comment-dislike"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i> 149</button> 
+                        <button class="comment-reply reply-popup"><i class="fa fa-reply-all" aria-hidden="true"></i> Reply</button>         
+                    </div>
+                    <div class="comment-box add-comment reply-box">
+                        
+                        <span class="mx-10 my-10">
+                        <form action="/comments" method="POST">
+                            @csrf
+                            <input name="plantSubmissionId" type="hidden" value="{{ $submission->plantSubmissionId }}" />
+                            <input name="userId" type="hidden" value="{{Auth::id()}}" />
+                            <input name="parentId" type="hidden" value="{{$comment->commentId}}" />
+                            <input name="body" type="text" />
+                            <button type="submit" class="btn btn-default">Reply</button>
+                            <button type="cancel" class="btn btn-default reply-popup">Cancel</button>
+                        </form>
+                        </span>
+                    </div>
                 </div>
-                <div class="comment-box replied">
-                <span class="mx-10 my-10">
-                    <a href="#">User</a> <span class="comment-time">2 hours ago</span>
-                </span>       
-                <p class="comment-txt more">Suspendisse massa enim, condimentum sit amet maximus quis, pulvinar sit amet ante. Fusce eleifend dui mi, blandit vehicula orci iaculis ac.</p>
-                <div class="comment-meta">
-                    <button class="comment-like"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i> 99</button>
-                    <button class="comment-dislike"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i> 149</button> 
-                    <button class="comment-reply"><i class="fa fa-reply-all" aria-hidden="true"></i> Reply</button>         
-                </div>
-                </div>
-            </div>
-            </div>
-        </div>
+                @php
+                    $children = DB::table('Comment')->where('parentId', $comment->commentId)->get();
+                @endphp
+                @foreach ( $children as $child)
+                    <div class="comment-box replied">
+                        <span class="mx-10 my-10">
+                            <a href="#">{{DB::table('users')->where('userId', $child->userId)->first()->email  }}</a> <span class="comment-time">{{$child->created_at}}</span>
+                        </span>       
+                        <p class="comment-txt more">{{$child->body}}</p>
+                        <div class="comment-meta">
+                            <button class="comment-like"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i> 99</button>
+                            <button class="comment-dislike"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i> 149</button> 
+                            <button class="comment-reply reply-popup"><i class="fa fa-reply-all" aria-hidden="true"></i> Reply</button>         
+                        </div>
+                        <div class="comment-box add-comment reply-box">
+                            
+                            <span class="mx-10 my-10">
+                            <form action="/comments" method="POST">
+                                @csrf
+                                <input name="plantSubmissionId" type="hidden" value="{{ $submission->plantSubmissionId }}" />
+                                <input name="userId" type="hidden" value="{{Auth::id()}}" />
+                                <input name="parentId" type="hidden" value="{{$child->commentId}}" />
+                                <input name="body" type="text" />
+                                <button type="submit" class="btn btn-default">Reply</button>
+                                <button type="cancel" class="btn btn-default reply-popup">Cancel</button>
+                            </form>
+                            </span>
+                        </div>
+                    </div>
+                    
+
+                @endforeach
+            @endforeach
+
         </div>
     </div>
 

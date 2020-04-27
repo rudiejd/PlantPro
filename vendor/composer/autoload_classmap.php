@@ -4139,6 +4139,8 @@ return array(
     'Tests\\CreatesApplication' => $baseDir . '/tests/CreatesApplication.php',
     'Tests\\Feature\\ExampleTest' => $baseDir . '/tests/Feature/ExampleTest.php',
     'Tests\\TestCase' => $baseDir . '/tests/TestCase.php',
+    'Tests\\Unit\\CommentTest' => $baseDir . '/tests/Unit/CommentTest.php',
+    'Tests\\Unit\\ExampleTest' => $baseDir . '/tests/Unit/ExampleTest.php',
     'Tests\\Unit\\PlantSubmissionTest' => $baseDir . '/tests/Unit/PlantSubmissionTest.php',
     'Tests\\Unit\\PlantTest' => $baseDir . '/tests/Unit/PlantTest.php',
     'Text_Template' => $vendorDir . '/phpunit/php-text-template/src/Template.php',

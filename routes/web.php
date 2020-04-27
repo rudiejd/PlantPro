@@ -40,6 +40,18 @@ Route::get('/submissions/{id}', 'PlantSubmissionController@show');
 // delete
 Route::delete('/submissions/{id}', 'PlantSubmissionController@destroy')->middleware('auth');
 
+
+// comment routes
+
+// post
+Route::post('/comments', 'CommentController@store');
+Route::post('/comments/{id}/upvote', 'CommentController@upvote');
+
+// delete
+Route::delete('/comments/{id}', 'CommentController@destroy');
+
+
+
 // auth rotes
 Auth::routes();
 

@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Schema;
  * 
  * 
  */
-class CreatePlantsubmissionTable extends Migration
+class CreatePlantSubmissionTable extends Migration
 {
     /**
      * Run the migrations.
