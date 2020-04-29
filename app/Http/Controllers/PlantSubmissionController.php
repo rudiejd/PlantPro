@@ -77,7 +77,7 @@ class PlantSubmissionController extends Controller
     *   @return redirect to the create view with success/failure message
     *   TODO: figure out how to deal with failure/show different message
     */
-    public function store() {
+    public function store(Request $request) {
         $submission = new PlantSubmission();
         $submission->userId = request('userId');
         $submission->plantId = request('plantId');
@@ -87,6 +87,15 @@ class PlantSubmissionController extends Controller
         $submission->description = request('description');
         $submission->upvotes = 1;
         $submission->save();
+
+        //deane added
+        $this->validate($request, [
+            'select_file' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
+        ]);
+        $image = $request->file('select_file');
+        $new_name = request('userId') . '_' . request('plantId') . '.' . $image -> getClientOriginalExtension();
+        $image->move(public_path("images"), $new_name);
+        
         return redirect('/submissions/create')->with('msg', 'Successfully posted your plant sighting.');
     }
 

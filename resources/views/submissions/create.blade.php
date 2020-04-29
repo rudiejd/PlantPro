@@ -4,7 +4,8 @@
 <div class="content text-center">
 	<h1>Submit A Plant Sighting</h1>
 	
-    <form method="post" action="/submissions">
+    <form method="post" action="{{ url('/submissions')}}" enctype="multipart/form-data">
+        {{ csrf_field() }}
         @csrf
 		<div class="form-row" id="row1">
 		<!-- plant id -->
@@ -40,12 +41,28 @@
 			<textarea class="form-control" id="descriptionIn" name="description" rows="5" cols="40" required></textarea>
 		</div>
 		</div>
+
+		<!-- deane added -->
+		<!-- submit an image -->
+		<div class="form-row" id="row4">
+			{{ csrf_field() }}
+			<div class="form-group col-md-12">
+				<table class="table">
+					<tr>
+						<td width="40%" align="right">
+						<label>Select Plant Image for Upload</label></td>
+						<td width="30"><input type="file" name="select_file"></td>
+						<td width="30%" align="left"><span class="text-muted">These file types only: jpeg, jpg, png, or gif</span></td>
+					</tr>
+				</table>
+			</div>
+		</div>
 		
 		<div id="buttons">
 		<input type="hidden" name="cmd" value="submit">
 		<input type="hidden" value="reset">
-		<button type="submit" class="button">Submit</button>
-		<button type="reset" class="button">Reset</button>
+		<button type="submit" name="upload" class="btn btn-primary">Submit</button>
+		<button type="reset" class="btn btn-primary">Reset</button>
 		</div>
 		</form>
 	  </div>
