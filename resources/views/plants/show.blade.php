@@ -6,13 +6,14 @@
     @if (isset($plant))
         <h1>{{ $plant['commonName']}}</h1>
 
-        <form></form>
-
-        <form action="/plants/{{ $plant['plantId'] }}" method="POST">
-            @csrf
-            @method('DELETE')
-            <button>Delete plant</button>
-        </form>
+        @if (Auth::user() !== null && Auth::user()->isAdmin())
+            <form action="/plants/{{ $plant['plantId'] }}" method="POST">
+                @csrf
+                <input type="hidden" name="userId" value="{{Auth::id()}}">
+                @method('DELETE')
+                <button>Delete plant</button>
+            </form>
+        @endif
 
 
 

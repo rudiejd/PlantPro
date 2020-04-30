@@ -24,25 +24,10 @@ class PlantSubmissionTest extends TestCase
     private function makeTestPlantSubmission() {
         $user = factory(User::class)->make();
         $user->save();
-        $plant = new Plant();
-        $plant->commonName = 'test';
-        $plant->division = 'test';
-        $plant->class = 'test';
-        $plant->order = 'test';
-        $plant->family = 'test';
-        $plant->genus = 'test';
-        $plant->species = 'test';
-        $plant->variety = 'test';
+        $plant = factory(Plant::class)->make();
         $plant->save();
-    
-        $submission = new PlantSubmission();
-        $submission->userId = 1;
-        $submission->plantId = 1;
-        $submission->latitude = 4.20;
-        $submission->longitude = 4.20;
-        $submission->title = 'Nice';
-        $submission->description = 'great plant bro';
-        return $submission;
+        $submission = factory(PlantSubmission::class)->make(); 
+        return $submission; 
     }
 
 

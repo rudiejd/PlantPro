@@ -19,17 +19,7 @@ class PlantTest extends TestCase
     }
 
     private function makeTestPlant() {
-     
-
-        $plant = new Plant();
-        $plant->commonName = 'test';
-        $plant->division = 'test';
-        $plant->class = 'test';
-        $plant->order = 'test';
-        $plant->family = 'test';
-        $plant->genus = 'test';
-        $plant->species = 'test';
-        $plant->variety = 'test';
+        $plant = factory(Plant::class)->make();
         return $plant;
     }
 

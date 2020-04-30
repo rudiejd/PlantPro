@@ -21,12 +21,11 @@ class CommentTest extends TestCase {
     private function makeComment() {
         $user = factory(User::class)->make();
         $user->save();
-        $comment = new Comment();
-        $comment->plantSubmissionId = 1;
-        $comment->userId = 1;
-        $comment->body = 'test';
-        $comment->date = 'test';
-        $comment->save();
+        $plant = factory(Plant::class)->make();
+        $plant->save();
+        $submission = factory(PlantSubmission::class)->make();
+        $submission->save();
+        $comment = factory(Comment::class)->make();
 
         return $comment;
     }

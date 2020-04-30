@@ -11,6 +11,7 @@
 <div id="form">
 		<form action="/plants" method="POST">
 				@csrf
+				<input type="hidden" name="userId" value="{{Auth::id()}}">
 				<div class="form-row" id="row1">
 				<!-- plant common name -->
 					<div class="form-group col-md-6" id="name">

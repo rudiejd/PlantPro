@@ -45,17 +45,20 @@ class PlantController extends Controller
     *   @return redirect to the create view with success/failure message
     *   TODO: figure out how to deal with failure/show different message when $plant->save fails
     */
-    public function store() {
+    public function store(Request $request) {
         // make a new Plant object and set all of its attributes using data from the post request we received
+        if (sizeof(DB::table('Admin')->where('userId', '=', $request->userId)->get()) === 0) {
+            App::abort(403, 'Permission denied');
+        }
         $plant = new Plant();
-        $plant->commonName = request('commonName');
-        $plant->division = request('division');
-        $plant->class = request('class');
-        $plant->order = request('p_order');
-        $plant->family = request('family');
-        $plant->genus = request('genus');
-        $plant->species = request('species');
-        $plant->variety = request('variety');
+        $plant->commonName = $request->commonName;
+        $plant->division = $request->division;
+        $plant->class = $request->class;
+        $plant->order = $request->order;
+        $plant->family = $request->family;
+        $plant->genus = $request->genus;
+        $plant->species = $request->species;
+        $plant->variety = $request->variety;
         $saved = $plant->save();
         if (!$saved) {
             App::abort(500, 'Error');
@@ -69,7 +72,11 @@ class PlantController extends Controller
     *   @return redirect to /plants
     * TODO: find out about soft delete and what happens when $plant->delete() fails
     */
-    public function destroy($id) {
+    public function destroy(Request $request) {
+        if (sizeof(DB::table('Admin')->where('userId', '=', $request->userId))->get() === 0) {
+            App::abort(403, 'Permission denied');
+        }
+        $id = $request->id;
         $plant = Plant::findOrFail($id);
         $plant->delete();
         return redirect('/plants');

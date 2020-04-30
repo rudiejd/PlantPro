@@ -107,8 +107,13 @@ class PlantSubmissionController extends Controller
     *   @return redirect to /submissions
     * TODO: find out about soft delete and what happens when $plant->delete() fails
     */  
-    public function destroy($id) {
+    public function destroy(Request $request) {
+        
+        $id = $request->id;
         $submission = PlantSubmission::findOrFail($id);
+        if (sizeof(DB::table('Admin')->where('userId', '=', $request->userId)->get()) === 0 && $submission->userId != $request->userId) {
+            App::abort(403, 'Permission denied');
+        }
         $submission->delete();
         return redirect('/submission');
 

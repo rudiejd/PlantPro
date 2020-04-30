@@ -1,11 +1,13 @@
 @extends('layouts.layout')
 @section('content')
 
-
+   
     <div class="container">
         <div class="text-center">
             <h1>All Plants</h1>
-            <h4><a href="/plants/create/">(Add Plant)</a></h4>
+            @if (Auth::user() !== null && Auth::user()->isAdmin())
+                <h4><a href="/plants/create/">(Add Plant)</a></h4>
+            @endif
         </div>
         <table class="table">
             <thead>
@@ -19,7 +21,7 @@
                 @foreach($plants as $plant)
                 <tr>
                     <th>
-                        {{$plant->genus}} {{$plant->species}} 
+                    <a href="/plants/{{$plant->plantId}}">{{$plant->genus}} {{$plant->species}} </a>
                     </td>
                     <td>
                         {{ $plant->commonName }}

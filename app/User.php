@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use DB;
 /**
  * Default User model that comes pre-installed with laravel. 
  * 
@@ -41,4 +42,13 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function isAdmin() {
+        if (sizeof(DB::table('Admin')->where('userId', '=', $this->userId)->get()) > 0 ) {
+            return true;
+        }
+        else {
+            return false; 
+        }
+    }
 }
