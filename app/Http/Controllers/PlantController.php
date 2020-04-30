@@ -56,7 +56,10 @@ class PlantController extends Controller
         $plant->genus = request('genus');
         $plant->species = request('species');
         $plant->variety = request('variety');
-        $plant->save();
+        $saved = $plant->save();
+        if (!$saved) {
+            App::abort(500, 'Error');
+        }
 
         // redirect to the creation page and show a msg about the creation succeeding
         return redirect('/plants/create')->with('msg', 'Plant submitted successfully.');

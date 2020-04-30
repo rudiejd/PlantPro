@@ -44,8 +44,8 @@ Route::delete('/submissions/{id}', 'PlantSubmissionController@destroy')->middlew
 // comment routes
 
 // post
-Route::post('/comments', 'CommentController@store');
-Route::post('/comments/{id}/upvote', 'CommentController@upvote');
+Route::post('/comments', 'CommentController@store')->middleware('auth');
+Route::post('/comments/{id}/upvote', 'CommentController@upvote')->middleware('auth');
 
 // delete
 Route::delete('/comments/{id}', 'CommentController@destroy');

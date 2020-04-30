@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\PlantSubmission;
@@ -21,7 +22,7 @@ class PlantSubmissionController extends Controller
     */
     public function index() {
         // get all submissions from database
-        $submissions = PlantSubmission::all();
+        $submissions = PlantSubmission::all()->sortByDesc("upvotes");
         return view('submissions.index', compact('submissions'));
 
     }
@@ -75,25 +76,37 @@ class PlantSubmissionController extends Controller
 
     /** Route for storing a submission in the database (responds to post request)
     *   @return redirect to the create view with success/failure message
-    *   TODO: figure out how to deal with failure/show different message
     */
-    public function store() {
+    public function store(Request $request) {
         $submission = new PlantSubmission();
-        $submission->userId = request('userId');
-        $submission->plantId = request('plantId');
-        $submission->latitude = request('latitude');
-        $submission->longitude = request('longitude');
-        $submission->title = request('title');
-        $submission->description = request('description');
-        $submission->upvotes = 1;
-        $submission->save();
+        $request->validate([
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+        
+        $imageName = time().'.'.$request->image->extension();
+        $lastId = DB::table('PlantSubmission')->orderByRaw('plantSubmissionId DESC')->first()->plantSubmissionId;
+        $moved = $request->image->move(public_path('img').'/'.($lastId+1).'/', $imageName);
+        if (!$moved) {
+            App::abort(500, 'Error');
+        }
+        $submission->upvotes = 0;
+        $submission->userId = $request->userId;
+        $submission->plantId = $request->plantId;
+        $submission->latitude = $request->latitude;
+        $submission->longitude = $request->longitude;
+        $submission->title = $request->title;
+        $submission->description = $request->description;
+        $saved = $submission->save();
+        if (!$saved) {
+            App::abort(500, 'Error');
+        }
         return redirect('/submissions/create')->with('msg', 'Successfully posted your plant sighting.');
     }
 
      /** route for deleting a submission
     *   @return redirect to /submissions
     * TODO: find out about soft delete and what happens when $plant->delete() fails
-    */
+    */  
     public function destroy($id) {
         $submission = PlantSubmission::findOrFail($id);
         $submission->delete();

@@ -21,7 +21,10 @@ class CommentController extends Controller
         }
         
         $comment->upvotes = 0;
-        $comment->save();
+        $saved = $comment->save();
+        if (!$saved) {
+            App::abort(500, 'Error');
+        }
         return redirect()->back();
     }
 

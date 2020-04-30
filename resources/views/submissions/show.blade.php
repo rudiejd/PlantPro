@@ -14,7 +14,16 @@ else {
     $userUpvoteImg = '../../img/upvote.jpg';
 }
 $submission = PlantSubmission::findOrFail($id);
-$comments = DB::table('Comment')->where('plantSubmissionId', '=', 1)->get();
+$comments = DB::table('Comment')->where('plantSubmissionId', '=', $submission->plantSubmissionId)->get();
+$productDirectory = "img/".$submission->plantSubmissionId."/";
+$images = array();
+if (is_dir($productDirectory)) {
+    $imageFiles = array_diff(scandir($productDirectory), array('.', '..'));
+    foreach ($imageFiles as $image) {
+        array_push($images, $productDirectory.$image);
+    }
+
+}
 
 @endphp
 <script>
@@ -56,7 +65,37 @@ $comments = DB::table('Comment')->where('plantSubmissionId', '=', 1)->get();
             
         <div class="text-muted content-center text-center">
             {{$submission->description}}
+            @if (sizeof($images) > 0) 
+                </br>
+                <div id="carouselControls" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner" style="width:100%; height: 500px !important;"> 
+                    <div class="carousel-item active">
+                        <a src="/{{$images[0]}}">
+                            <img class="d-block w-100" src="/{{$images[0]}}" alt="First slide">
+                        </a>
+                    </div>
+                    @for ($counter = 1; $counter < sizeof($images); $counter++)
+                        <div class="carousel-item">
+                                <a href="/{{ $images[counter] }}">
+                                    <img class="d-block w-100" src="/{{ $images[counter] }}" alt="Image">
+                                </a>
+                            </div>
+                    @endfor
+                </div>
+            @endif
+            <a class="carousel-control-prev" href="#carouselControls" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselControls" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+</div>
         </div>
+            
+                
+            
 
     <div class="row">
         <div class="col-12">
