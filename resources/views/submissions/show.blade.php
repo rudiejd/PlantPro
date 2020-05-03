@@ -37,7 +37,7 @@ if (is_dir($productDirectory)) {
 </script>
 </br>
 <div class="container">
-    <div class="bg-light">
+    <div class="bg-white">
         
         <div class="row">
                 <div class="col-2 content-center">
@@ -96,7 +96,16 @@ if (is_dir($productDirectory)) {
             
                 
             
-
+    <div id="map" style="height:200px"></div>
+    <script>
+        var mymap = L.map('map').setView([{{$submission->latitude}}, {{$submission->longitude}}], 5);
+        var googleHybrid = L.tileLayer('http://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}',{
+    maxZoom: 20,
+    subdomains:['mt0','mt1','mt2','mt3']
+	}).addTo(mymap);
+	var marker = L.marker([{{$submission->latitude}}, {{$submission->longitude}}]).addTo(mymap);
+	marker.bindPopup("<b>Submission Location</b>");
+    </script>
     <div class="row">
         <div class="col-12">
         <div class="comments">

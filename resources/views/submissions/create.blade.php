@@ -1,5 +1,10 @@
 @extends('layouts.layout')
 @section('content')
+@php
+	$plants = DB::table('Plant')->get();
+
+@endphp
+
 
 <div class="content text-center">
 	<h1>Submit A Plant Sighting</h1>
@@ -7,15 +12,17 @@
     <form method="post" action="/submissions" enctype="multipart/form-data">
         @csrf
 		<div class="form-row" id="row1">
+		<input type="hidden" value="{{Auth::id()}}" name="userId" />
 		<!-- plant id -->
-		<div class="form-group col-md-6" id="plantId">
-			<label for="plantIDIn">Plant ID</label>
-			<input type="text" class="form-control" id="plantIDIn" name="plantId" required>
-		</div>
-		<!-- user id -->
-		<div class="form-group col-md-6" id="userId">
-			<label for="userIDIn">User ID</label>
-			<input type="text" class="form-control" id="userIDIn" name="userId" required>
+
+		<div class="form-group col-md-12" id="plantId">
+			<label for="plantId">Plant</label>
+			</br>
+			<select id="plantId" name="plantId" class="col-8 text-center" required>
+				@foreach ($plants as $plant)
+					<option value="{{$plant->plantId}}" class="text-center">{{$plant->commonName}}</option>
+				@endforeach
+			</select>
 		</div>
 		</div>
 		<!-- title -->
@@ -26,15 +33,14 @@
 		<!-- longitude (will remove later) -->
 		<div class="form-group col-md-12" id="description">
 			<label for="description">Longitude</label>                                                                            
-			<textarea class="form-control" id="descriptionIn" name="longitude" required></textarea>
+			<textarea class="form-control" id="long" name="longitude" required></textarea>
 		</div>
 		<!-- latitude (will remove later) -->
 		<div class="form-group col-md-12" id="description">
 			<label for="description">Longitude</label>                                                                            
-			<textarea class="form-control" id="descriptionIn" name="latitude" required></textarea>
+			<textarea class="form-control" id="lat" name="latitude" required></textarea>
 		</div>
-		
-		<div class="col-md-6">
+			<div class="col-md-6">
 			<label for="files[]">Select Photo (one or multiple):</label>
 			<input type="file" name="images[]" multiple/><br>
 			<span class="text-muted">Note: Supported image format: .jpeg, .jpg, .png, .gif</span>
@@ -58,6 +64,26 @@
 	  </div>
 </div>
 
+	<div id="map" style="height:200;"></div>
+		<script>
+			var mapCenter = [22, 87];
+			var map = L.map('map');
+			var googleHybrid = L.tileLayer('http://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}',{
+    maxZoom: 20,
+    subdomains:['mt0','mt1','mt2','mt3']
+        }).addTo(map);
+
+			var marker = L.marker(mapCenter).addTo(map);
+			var updateMarker = function(lat, lng) {
+    				marker.setLatLng([lat, lng]).bindPopup("Your location :  " + marker.getLatLng().toString().openPopup());
+    				return false;
+			};
+			map.on('click', function(e) {
+				$('#long').val(e.latlng.lng);
+				$('#lat').val(e.latlng.lat);
+				updateMarker(e.latlng.lat, e.latlng.lng);
+			});
+		</script>
 
 	
 
