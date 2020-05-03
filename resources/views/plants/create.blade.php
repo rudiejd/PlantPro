@@ -33,7 +33,7 @@
 					<!-- order -->
 					<div class="form-group col-md-6" id="order">
 							<label for="orderIn">Order</label>                                                                                	
-							<input type="text" class="form-control" id="orderIn" name="p_order" required />                               	
+							<input type="text" class="form-control" id="orderIn" name="order" required />                               	
 					</div>
 				</div>
 				<div class="form-row" id="row3">

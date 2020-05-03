@@ -32,7 +32,8 @@ class CreatePlantSubmissionTable extends Migration
             $table->double('latitude');
             $table->double('longitude');
             $table->string('title');
-            $table->text('description');
+	    $table->text('description');
+	    $table->softDeletes();
             $table->timestamps();
         });
     }

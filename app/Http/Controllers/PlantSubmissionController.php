@@ -79,16 +79,19 @@ class PlantSubmissionController extends Controller
     */
     public function store(Request $request) {
         $submission = new PlantSubmission();
-        $request->validate([
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ]);
+	if ($request->image !== null) {
+
+		$request->validate([
+            		'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+       		 ]);
         
-        $imageName = time().'.'.$request->image->extension();
-        $lastId = DB::table('PlantSubmission')->orderByRaw('plantSubmissionId DESC')->first()->plantSubmissionId;
-        $moved = $request->image->move(public_path('img').'/'.($lastId+1).'/', $imageName);
-        if (!$moved) {
-            App::abort(500, 'Error');
-        }
+       		$imageName = time().'.'.$request->image->extension();
+       		$lastId = DB::table('PlantSubmission')->orderByRaw('plantSubmissionId DESC')->first()->plantSubmissionId;
+        	$moved = $request->image->move(public_path('img').'/'.($lastId+1).'/', $imageName);
+       		if (!$moved) {
+            		App::abort(500, 'Error');
+		}
+	}
         $submission->upvotes = 0;
         $submission->userId = $request->userId;
         $submission->plantId = $request->plantId;

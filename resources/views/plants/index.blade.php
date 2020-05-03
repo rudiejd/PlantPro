@@ -5,9 +5,7 @@
     <div class="container">
         <div class="text-center">
             <h1>All Plants</h1>
-            @if (Auth::user() !== null && Auth::user()->isAdmin())
-                <h4><a href="/plants/create/">(Add Plant)</a></h4>
-            @endif
+            <h4><a href="/plants/create/">(Add Plant)</a></h4>
         </div>
         <table class="table">
             <thead>

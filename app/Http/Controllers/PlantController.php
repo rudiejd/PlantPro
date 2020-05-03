@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use DB;
 use Illuminate\Http\Request;
 use App\Plant;
 /**
@@ -46,10 +47,7 @@ class PlantController extends Controller
     *   TODO: figure out how to deal with failure/show different message when $plant->save fails
     */
     public function store(Request $request) {
-        // make a new Plant object and set all of its attributes using data from the post request we received
-        if (sizeof(DB::table('Admin')->where('userId', '=', $request->userId)->get()) === 0) {
-            App::abort(403, 'Permission denied');
-        }
+        // make a new Plant object and set all of its attributes using data from the post request we received 
         $plant = new Plant();
         $plant->commonName = $request->commonName;
         $plant->division = $request->division;
@@ -73,7 +71,7 @@ class PlantController extends Controller
     * TODO: find out about soft delete and what happens when $plant->delete() fails
     */
     public function destroy(Request $request) {
-        if (sizeof(DB::table('Admin')->where('userId', '=', $request->userId))->get() === 0) {
+        if (sizeof(DB::table('Admin')->where('userId', '=', $request->userId)->get()) === 0) {
             App::abort(403, 'Permission denied');
         }
         $id = $request->id;
