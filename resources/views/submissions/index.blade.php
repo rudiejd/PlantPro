@@ -38,6 +38,9 @@
                     @endforeach
             </tbody>
         </table>
+    <div class="row">
+        {{$submissions->links()}}
+    </div>
 </div>
  
     

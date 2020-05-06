@@ -18,7 +18,7 @@ class PlantController extends Controller
     *
     */
     public function index() {
-        $plants = Plant::all();
+        $plants = Plant::paginate(30);
         return view('plants.index', compact('plants'));
 
     }

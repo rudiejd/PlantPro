@@ -22,7 +22,7 @@ class PlantSubmissionController extends Controller
     */
     public function index() {
         // get all submissions from database
-        $submissions = PlantSubmission::all()->sortByDesc("upvotes");
+        $submissions = PlantSubmission::orderBy('upvotes')->paginate(30);
         return view('submissions.index', compact('submissions'));
 
     }
@@ -85,8 +85,14 @@ class PlantSubmissionController extends Controller
             		'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
        		 ]);
         
-       		$imageName = time().'.'.$request->image->extension();
-       		$lastId = DB::table('PlantSubmission')->orderByRaw('plantSubmissionId DESC')->first()->plantSubmissionId;
+            $imageName = time().'.'.$request->image->extension();
+            $lastId = 0;
+            $lastIdQuery = DB::table('PlantSubmission')->orderByRaw('plantSubmissionId DESC')->first();
+            if ($lastIdQuery !== null) {
+                $lastId = $lastIdQuery->plantSubmissionId;
+            }
+
+            
         	$moved = $request->image->move(public_path('img').'/'.($lastId+1).'/', $imageName);
        		if (!$moved) {
             		App::abort(500, 'Error');

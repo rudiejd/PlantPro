@@ -19,7 +19,7 @@
                 @foreach($plants as $plant)
                 <tr>
                     <th>
-                    <a href="/plants/{{$plant->plantId}}">{{$plant->genus}} {{$plant->species}} </a>
+                    <a href="/plants/{{$plant->plantId}}">{{$plant->species}}</a>
                     </td>
                     <td>
                         {{ $plant->commonName }}
@@ -31,6 +31,9 @@
                  @endforeach
             </tbody>
         </table>
+        <div class="row">
+            {{$plants->links()}}
+        </div>
         
     </div>
 @endsection

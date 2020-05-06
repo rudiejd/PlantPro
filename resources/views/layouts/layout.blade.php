@@ -48,6 +48,12 @@
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
+                    <!-- Search bar -->
+                    <form class="form-inline d-flex justify-content-center md-form form-sm active-cyan-2 mt-2" action="/search" method="get">
+                        <input class="form-control form-control-sm mr-3 w-75" type="text" placeholder="Search" name="query"
+                            aria-label="Search">
+                        <i class="fas fa-search" aria-hidden="true"></i>
+                    </form>
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item">

@@ -17,7 +17,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// plant routes
+/**************************************************************************
+ *                                                                        
+ *                                                                        
+ *                          PLANT ROUTES                                                
+ *                                                                        
+ *                                                                 
+ *                                                                        
+****************************************************************************/
 
 // post
 Route::post('/plants', 'PlantController@store')->middleware('auth');
@@ -28,7 +35,14 @@ Route::get('/plants/{id}', 'PlantController@show');
 // delete
 Route::delete('/plants/{id}', 'PlantController@destroy')->middleware('auth');
 
-//plant submissions (posts) routes
+/**************************************************************************
+ *                                                                        
+ *                                                                        
+ *                          PLANTSUBMISSION ROUTES                                                
+ *                                                                        
+ *                                                                 
+ *                                                                        
+****************************************************************************/
 
 //post
 Route::post('/submissions', 'PlantSubmissionController@store')->middleware('auth');
@@ -41,7 +55,14 @@ Route::get('/submissions/{id}', 'PlantSubmissionController@show');
 Route::delete('/submissions/{id}', 'PlantSubmissionController@destroy')->middleware('auth');
 
 
-// comment routes
+/**************************************************************************
+ *                                                                        
+ *                                                                        
+ *                          COMMENT ROUTES                                               
+ *                                                                        
+ *                                                                 
+ *                                                                        
+****************************************************************************/
 
 // post
 Route::post('/comments', 'CommentController@store')->middleware('auth');
@@ -51,8 +72,25 @@ Route::post('/comments/{id}/upvote', 'CommentController@upvote')->middleware('au
 Route::delete('/comments/{id}', 'CommentController@destroy');
 
 
+/**************************************************************************
+ *                                                                        
+ *                                                                        
+ *                          SEARCH ROUTES                                                
+ *                                                                        
+ *                                                                 
+ *                                                                        
+****************************************************************************/
+Route::get('/search', 'SearchController@search');
 
-// auth rotes
+
+/**************************************************************************
+ *                                                                        
+ *                                                                        
+ *                          AUTH ROUTES                                                
+ *                                                                        
+ *                                                                 
+ *                                                                        
+****************************************************************************/
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');

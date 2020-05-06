@@ -61,11 +61,11 @@
 					</div>
 				</div>
 				
-				<div id="buttons">
+				<div id="buttons" class="text-center content-center">
 					<input type="hidden" name="cmd" value="submit" />
 					<input type="hidden" value="reset" />
-					<button type="submit" class="button">Submit</button>
-					<button type="reset" class="button">Reset</button>
+					<button type="submit" class="btn btn-primary">Submit</button>
+					<button type="reset" class="btn btn-primary">Reset</button>
 				</div>
 		</form>
 </div>

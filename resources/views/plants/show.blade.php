@@ -10,7 +10,15 @@ $submissions = DB::table('PlantSubmission')->where('plantId','=',$plant->plantId
 
 <div class="container">
     <div class="text-center">
-        <h1>Latest submissions for {{ $plant->commonName }}</h1>
+        <h1>{{ $plant->commonName }}</h1>
+        <div class="row">
+            <div class="col-6">
+                <h4>Genus: {{$plant->genus}}</h4>
+            </div>
+            <div class="col-6">
+                <h4>Species: {{$plant->species}}
+            </div>
+        </div>
         <h4><a href="/submissions/create">(Add Submission)</a></h4>
     </div>
     <table class="table">
