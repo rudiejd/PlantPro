@@ -41,8 +41,8 @@
 			<textarea class="form-control" id="lat" name="latitude" required></textarea>
 		</div>
 			<div class="col-md-6">
-			<label for="files[]">Select Photo (one or multiple):</label>
-			<input type="file" name="images[]" multiple/><br>
+			<label for="files[]">Select Photo:</label>
+			<input type="file" name="image" /><br>
 			<span class="text-muted">Note: Supported image format: .jpeg, .jpg, .png, .gif</span>
         </div>
    

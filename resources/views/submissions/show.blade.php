@@ -47,7 +47,7 @@ if (is_dir($productDirectory)) {
                         </form> 
                 </div>
                 <div class="col-2"></div>
-                <div class="col-4 text-center">
+                <div class="col-12 text-center">
                     <h1>{{ $submission->title }} </h1>
                 </div>
         </div>
@@ -95,7 +95,9 @@ if (is_dir($productDirectory)) {
         </div>
             
                 
-            
+    <div class="col-12 text-center">
+	<h4>Location of Submission</h4>
+    </div> 
     <div id="map" style="height:200px"></div>
     <script>
         var mymap = L.map('map').setView([{{$submission->latitude}}, {{$submission->longitude}}], 5);
@@ -118,7 +120,7 @@ if (is_dir($productDirectory)) {
                         @csrf
                         <input name="plantSubmissionId" type="hidden" value="{{ $submission->plantSubmissionId }}" />
                         <input name="userId" type="hidden" value="{{Auth::id()}}" />
-                        <input name="body" type="text" />
+                        <input name="body" type="text" required />
                     
                     <button type="submit" class="btn btn-default">Comment</button>
                     <button type="cancel" class="btn btn-default">Cancel</button>
@@ -145,7 +147,7 @@ if (is_dir($productDirectory)) {
                                 <input name="plantSubmissionId" type="hidden" value="{{ $submission->plantSubmissionId }}" />
                                 <input name="userId" type="hidden" value="{{Auth::id()}}" />
                                 <input name="parentId" type="hidden" value="{{$comment->commentId}}" />
-                                <input name="body" type="text" />
+                                <input name="body" type="text" required />
                                 <button type="submit" class="btn btn-default">Reply</button>
                                 <button type="cancel" class="btn btn-default reply-popup">Cancel</button>
                             </form>
@@ -174,7 +176,7 @@ if (is_dir($productDirectory)) {
                                 <input name="plantSubmissionId" type="hidden" value="{{ $submission->plantSubmissionId }}" />
                                 <input name="userId" type="hidden" value="{{Auth::id()}}" />
                                 <input name="parentId" type="hidden" value="{{$child->commentId}}" />
-                                <input name="body" type="text" />
+                                <input name="body" type="text" required/>
                                 <button type="submit" class="btn btn-default">Reply</button>
                                 <button type="cancel" class="btn btn-default reply-popup">Cancel</button>
                             </form>
