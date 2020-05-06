@@ -28,17 +28,33 @@
 		<!-- title -->
 		<div class="form-group col-md-12" id="description">
 			<label for="description">Title</label>                                                                            
-			<textarea class="form-control" id="descriptionIn" name="title" required></textarea>
+			<textarea class="form-control" id="descriptionIn" name="title" maxlength="150" required></textarea>
 		</div>
 		<!-- longitude (will remove later) -->
 		<div class="form-group col-md-12" id="description">
-			<label for="description">Longitude</label>                                                                            
-			<textarea class="form-control" id="long" name="longitude" required></textarea>
+			<label for="description">Longitude</label>
+            <script type="application/javascript">
+            function numberOnly(e) {
+                var cCode = (e.which) ? e.which : event.keyCode
+                if (cCode > 31 && (cCode < 48 || cCode > 57))
+                return false;
+                return true;
+            } 
+            </script>
+			<textarea class="form-control" id="long" name="longitude" onkeypress="return numberOnly(event)" maxlength="12" required></textarea>
 		</div>
 		<!-- latitude (will remove later) -->
 		<div class="form-group col-md-12" id="description">
-			<label for="description">Longitude</label>                                                                            
-			<textarea class="form-control" id="lat" name="latitude" required></textarea>
+            <label for="description">Latitude</label>
+            <script type="application/javascript">
+            function numberOnly(e) {
+                var cCode = (e.which) ? e.which : event.keyCode
+                if (cCode > 31 && (cCode < 48 || cCode > 57))
+                return false;
+                return true;
+            }
+            </script>
+            <textarea class="form-control" id="lat" name="latitude" onkeypress="return numberOnly(event)" maxlength="12" required></textarea>
 		</div>
 			<div class="col-md-6">
 			<label for="files[]">Select Photo:</label>
@@ -50,7 +66,7 @@
 		<!-- description -->
 		<div class="form-group col-md-12" id="description">
 			<label for="description">Description</label>                                                                            
-			<textarea class="form-control" id="descriptionIn" name="description" rows="5" cols="40" required></textarea>
+			<textarea class="form-control" id="descriptionIn" name="description" rows="5" cols="40" maxlength="150" required></textarea>
 		</div>
 		</div>
 		
