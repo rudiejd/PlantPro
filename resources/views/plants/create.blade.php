@@ -16,48 +16,48 @@
 				<!-- plant common name -->
 					<div class="form-group col-md-6" id="name">
 						<label for="plantNameIn">Common Name</label>
-						<input type="text" class="form-control" id="plantNameIn" name="commonName" required />
+						<input type="text" class="form-control" id="plantNameIn" name="commonName" maxlength="100" required />
 					</div>
 					<!-- division -->
 					<div class="form-group col-md-6" id="division">
 						<label for="divisionIn">Division</label>
-						<input type="text" class="form-control" id="divisionIn" name="division" required />
+						<input type="text" class="form-control" id="divisionIn" name="division" maxlength="100" required />
 					</div>
 				</div>
 				<div class="form-row" id="row2">
 					<!-- class -->
 					<div class="form-group col-md-6" id="class">
 							<label for="classIn">Class</label>
-							<input type="text" class="form-control" id="classIn" name="class" required />
+							<input type="text" class="form-control" id="classIn" name="class" maxlength="100" required />
 					</div>
 					<!-- order -->
 					<div class="form-group col-md-6" id="order">
 							<label for="orderIn">Order</label>                                                                                	
-							<input type="text" class="form-control" id="orderIn" name="order" required />                               	
+							<input type="text" class="form-control" id="orderIn" name="order" maxlength="100" required />                               	
 					</div>
 				</div>
 				<div class="form-row" id="row3">
 					<!-- family -->
 					<div class="form-group col-md-6" id="family">
 							<label for="familyIn">Family</label>                                                                                    
-							<input type="text" class="form-control" id="familyIn" name="family" required />
+							<input type="text" class="form-control" id="familyIn" name="family" maxlength="100" required />
 					</div>
 					<!-- genus -->                                                                                                          
 					<div class="form-group col-md-6" id="genus">
 							<label for="genusIn">Genus</label>                                                                                      
-							<input type="text" class="form-control" id="genusIn" name="genus" required />                                   
+							<input type="text" class="form-control" id="genusIn" name="genus" maxlength="100" required />                                   
 					</div>
 				</div>
 				<div class="form-row" id="row4">
 					<!-- species -->
 					<div class="form-group col-md-6" id="species">
 									<label for="speciesIn">Species</label>                                                                                  
-									<input type="text" class="form-control" id="speciesIn" name="species" required />			                
+									<input type="text" class="form-control" id="speciesIn" name="species" maxlength="100" required />			                
 					</div>												                     	
 					<!-- variety -->    
 					<div class="form-group col-md-6" id="variety">
 							<label for="varietyIn">Variety</label>                                                                                  
-							<input type="text" class="form-control" id="varietyIn" name="variety" required />                                 
+							<input type="text" class="form-control" id="varietyIn" name="variety" maxlength="100" required />                                 
 					</div>
 				</div>
 				
