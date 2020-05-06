@@ -36,7 +36,7 @@
             <script type="application/javascript">
             function numberOnly(e) {
                 var cCode = (e.which) ? e.which : event.keyCode
-                if (cCode > 31 && (cCode < 48 || cCode > 57))
+                if (cCode > 31 && (cCode != 46 && (cCode < 48 || cCode > 57)))
                 return false;
                 return true;
             } 
@@ -49,10 +49,10 @@
             <script type="application/javascript">
             function numberOnly(e) {
                 var cCode = (e.which) ? e.which : event.keyCode
-                if (cCode > 31 && (cCode < 48 || cCode > 57))
+                if (cCode > 31 && (cCode != 46 && (cCode < 48 || cCode > 57)))
                 return false;
                 return true;
-            }
+            } 
             </script>
             <textarea class="form-control" id="lat" name="latitude" onkeypress="return numberOnly(event)" maxlength="12" required></textarea>
 		</div>
