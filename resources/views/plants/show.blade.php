@@ -16,7 +16,7 @@ $submissions = DB::table('PlantSubmission')->where('plantId','=',$plant->plantId
                 @csrf
                 <input type="hidden" name="userId" class="btn-primary" value="{{Auth::id()}}">
                 @method('DELETE')
-                <button>Delete plant</button>
+                <button class="btn btn-primary">Delete plant</button>
             </form>
         @endif
         <div class="row">
