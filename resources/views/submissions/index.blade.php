@@ -26,7 +26,7 @@
                         <a href="/submissions/{{$submission->plantSubmissionId}}"> {{$submission->title}} </a>
                     </th>
                     <td>
-                     {{DB::table('Plant')->where('plantId', $submission['plantId'])->first()->genus}} {{DB::table('Plant')->where('plantId', $submission['plantId'])->first()->species}} 
+                        {{DB::table('Plant')->where('plantId', $submission['plantId'])->first()->species}} 
                     </td>
                     <td>
                         {{DB::table('users')->where('userId', $submission['userId'])->first()->email}}

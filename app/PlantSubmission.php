@@ -3,7 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Database\Eloquent\SoftDeletes; 
 /**
  * This is a model for describing the submissions, part of the MVC (Model-View Controller) pattern
  *  It inherits a bunch of stuff from the default eloquent model which allows us to
@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class PlantSubmission extends Model
 {
+    use SoftDeletes;
     protected $table = 'PlantSubmission';
     protected $primaryKey ='plantSubmissionId';
 }

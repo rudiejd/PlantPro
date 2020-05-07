@@ -11,6 +11,30 @@ $submissions = DB::table('PlantSubmission')->where('plantId','=',$plant->plantId
 <div class="container">
     <div class="text-center">
         <h1>{{ $plant->commonName }}</h1>
+        @if (Auth::user() !== null && Auth::user()->isAdmin())
+            <form action="/plants/{{ $plant['plantId'] }}" method="POST">
+                @csrf
+                <input type="hidden" name="userId" class="btn-primary" value="{{Auth::id()}}">
+                @method('DELETE')
+                <button>Delete plant</button>
+            </form>
+        @endif
+        <div class="row">
+            <div class="col-6">
+                <h4>Division: {{$plant->division}}</h4>
+            </div>
+            <div class="col-6">
+                <h4>Class: {{$plant->class}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <h4>Order: {{$plant->order}}</h4>
+            </div>
+            <div class="col-6">
+                <h4>Family: {{$plant->family}}
+            </div>
+        </div>
         <div class="row">
             <div class="col-6">
                 <h4>Genus: {{$plant->genus}}</h4>
@@ -19,7 +43,9 @@ $submissions = DB::table('PlantSubmission')->where('plantId','=',$plant->plantId
                 <h4>Species: {{$plant->species}}
             </div>
         </div>
-        <h4><a href="/submissions/create">(Add Submission)</a></h4>
+        <div class="col-12">
+            <h2>Submissions for {{$plant->commonName}} </h2>
+        </div>
     </div>
     <table class="table">
             <thead>

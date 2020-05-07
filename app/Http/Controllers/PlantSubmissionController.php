@@ -8,12 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\PlantSubmission;
 use DB;
 
-/**
- * This is a controller, the "C" in MVC. It's used by our main routes file to
- * write in functions for the routes that are specifically utilized by the
- *  PlantSubmission model. 
- * 
- */
+
 class PlantSubmissionController extends Controller
 {
     /** route for showing main submission page with all submissions
@@ -22,7 +17,7 @@ class PlantSubmissionController extends Controller
     */
     public function index() {
         // get all submissions from database
-        $submissions = PlantSubmission::orderBy('upvotes')->paginate(30);
+        $submissions = PlantSubmission::orderBy('upvotes')->paginate(15);
         return view('submissions.index', compact('submissions'));
 
     }
@@ -109,12 +104,12 @@ class PlantSubmissionController extends Controller
         if (!$saved) {
             App::abort(500, 'Error');
         }
-        return redirect('/submissions/create')->with('msg', 'Successfully posted your plant sighting.');
+        return redirect('/submissions');
     }
 
-     /** route for deleting a submission
+    /** route for deleting a submission
     *   @return redirect to /submissions
-    * TODO: find out about soft delete and what happens when $plant->delete() fails
+    * 
     */  
     public function destroy(Request $request) {
         
@@ -124,7 +119,7 @@ class PlantSubmissionController extends Controller
             App::abort(403, 'Permission denied');
         }
         $submission->delete();
-        return redirect('/submission');
+        return redirect('/submissions');
 
     }
 

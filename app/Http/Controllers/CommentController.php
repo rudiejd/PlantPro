@@ -7,7 +7,10 @@ use App\Comment;
 
 class CommentController extends Controller
 {
-    
+    /** Main search route
+    *   @return redirect to the submission the user was viewing
+    * 
+    */
     public function store() {
         $comment = new Comment();
         $comment->userId = request('userId');
@@ -28,12 +31,11 @@ class CommentController extends Controller
         return redirect()->back();
     }
 
-
-    // imma implement this later
-    public function upvote($id) {
-        
-    }
-
+    /**
+     * Route for deleting a comment
+     * @return redirect back to the submission the user was viewing
+     * 
+     */
     public function destroy($id) {
         $comment = Comment::findOrFail($id);
         $comment->delete();

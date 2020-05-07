@@ -83,20 +83,21 @@ if (is_dir($productDirectory)) {
                     @endfor
                 </div>
             @endif
-            <a class="carousel-control-prev" href="#carouselControls" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-            </a>
-            <a class="carousel-control-next" href="#carouselControls" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-            </a>
 </div>
         </div>
             
-                
     <div class="col-12 text-center">
-	<h4>Location of Submission</h4>
+        @if (Auth::user() !== null && ( Auth::user()->isAdmin() || $submission->userId = Auth::id() ) )
+            <form action="/submissions/{{ $submission->plantSubmissionId }}" method="POST">
+                @csrf
+                <input type="hidden" name="userId" value="{{Auth::id()}}">
+                @method('DELETE')
+                <button class="btn btn-primary">Delete submission</button>
+            </form>
+        @endif
+    </div>        
+    <div class="col-12 text-center">
+	    <h4>Location of Submission</h4>
     </div> 
     <div id="map" style="height:200px"></div>
     <script>
@@ -136,7 +137,6 @@ if (is_dir($productDirectory)) {
                         </span>       
                         <p class="comment-txt more">{{$comment->body}}</p>
                         <div class="comment-meta">
-                            <button class="comment-like" type="submit">{{$comment->upvotes}}</button>
                             <button class="comment-reply reply-popup"><i class="fa fa-reply-all" aria-hidden="true"></i> Reply</button>         
                         </div>
                         <div class="comment-box add-comment reply-box">
@@ -165,7 +165,6 @@ if (is_dir($productDirectory)) {
                         </span>       
                         <p class="comment-txt more">{{$child->body}}</p>
                         <div class="comment-meta">
-                            <button class="comment-like">{{$child->upvotes}}</button>
                             <button class="comment-reply reply-popup"><i class="fa fa-reply-all" aria-hidden="true"></i> Reply</button>         
                         </div>
                         <div class="comment-box add-comment reply-box">

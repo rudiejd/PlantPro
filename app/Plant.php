@@ -3,7 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Database\Eloquent\SoftDeletes; 
 
 /**
  * This is a model for describing the plants, part of the MVC (Model-View Controller) pattern
@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Plant extends Model
 {
+    use SoftDeletes;
     protected $table = 'Plant';
     protected $primaryKey ='plantId';
 }
