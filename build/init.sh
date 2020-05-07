@@ -16,9 +16,7 @@ if [ -d "/var/www/PlantPro" ];
 fi
 
 git clone https://github.com/rudiejd/PlantPro.git /var/www/PlantPro;
-chmod -R www-data.www-data /var/www/PlantPro;
-chmod -R 755 /var/www/PlantPro;
-chmod 777 -R /var/www/PlantPro/storage;
+chmod 777 -R /var/www/PlantPro
 
 mysql -u root -e "CREATE DATABASE PlantPro;"
 mysql -u root -e "ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '';";

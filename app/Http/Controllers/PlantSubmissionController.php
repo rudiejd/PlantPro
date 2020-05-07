@@ -17,7 +17,7 @@ class PlantSubmissionController extends Controller
     */
     public function index() {
         // get all submissions from database
-        $submissions = PlantSubmission::orderBy('upvotes')->paginate(15);
+        $submissions = PlantSubmission::orderBy('upvotes', 'DESC')->paginate(15);
         return view('submissions.index', compact('submissions'));
 
     }
