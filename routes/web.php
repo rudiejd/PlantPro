@@ -46,7 +46,7 @@ Route::delete('/plants/{id}', 'PlantController@destroy')->middleware('auth');
 
 //post
 Route::post('/submissions', 'PlantSubmissionController@store')->middleware('auth');
-Route::post('/submissions/{id}/upvote', 'PlantSubmissionController@upvote');
+Route::post('/submissions/{id}/upvote', 'PlantSubmissionController@upvote')->middleware('auth');
 // get
 Route::get('/submissions', 'PlantSubmissionController@index');
 Route::get('/submissions/create', 'PlantSubmissionController@create')->middleware('auth');
@@ -94,3 +94,7 @@ Route::get('/search', 'SearchController@search');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
+Route::post('/makeAdmin', 'HomeController@makeAdmin')->middleware('auth');
+Route::post('/makeMod', 'HomeController@makeMod')->middleware('auth');
+Route::post('/removeMod', 'HomeController@removeMod')->middleware('auth');
+Route::get('/admin', 'HomeController@admin')->middleware('auth');

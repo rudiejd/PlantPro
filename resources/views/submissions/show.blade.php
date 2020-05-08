@@ -51,50 +51,46 @@ if (is_dir($productDirectory)) {
                     <h1>{{ $submission->title }} </h1>
                 </div>
         </div>
-        <div class="row text-center">
-                <div class="col-4">
-                    Plant: {{DB::table('Plant')->where('plantId', $submission['plantId'])->first()->commonName}} 
-                </div>
-                <div class="col-4">
+        <div class="row d-flex justify-content-center align-items-center  border border-info rounded bg-success text-white" style="height:70px !important">
+                    <p class="col-4">
+                    Scientific Name: {{DB::table('Plant')->where('plantId', $submission['plantId'])->first()->species}} 
+                    </p>
+                    <p class="col-4">
                     Author: {{ DB::table('users')->where('userId', $submission['userId'])->first()->email   }}
-                </div>
-                <div class="col-4">
-                    {{$submission->created_at->format("m/d/y")}}
-                </div>
+                    </p>
+                    <p class="col-3">
+                    Creation Date: {{$submission->created_at->format("m/d/y")}}
+                    </p>
         </div>
             
-        <div class="text-muted content-center text-center">
-            {{$submission->description}}
-            @if (sizeof($images) > 0) 
-                </br>
-                <div id="carouselControls" class="carousel slide" data-ride="carousel">
-                <div class="carousel-inner" style="width:100%; height: 500px !important;"> 
-                    <div class="carousel-item active">
-                        <a src="/{{$images[0]}}">
-                            <img class="d-block w-100" src="/{{$images[0]}}" alt="First slide">
-                        </a>
-                    </div>
-                    @for ($counter = 1; $counter < sizeof($images); $counter++)
-                        <div class="carousel-item">
-                                <a href="/{{ $images[counter] }}">
-                                    <img class="d-block w-100" src="/{{ $images[counter] }}" alt="Image">
-                                </a>
-                            </div>
-                    @endfor
-                </div>
+        <div class="mt-3 mb-3 d-flex justify-content-center align-items-center bg-success text-white border border-info rounded" style="height:100px !important"> 
+                <p class="row">
+                    {{$submission->description}} 
+                </p>
+        </div>
+    </div>
+    @if (sizeof($images) > 0) 
+    <div class="row d-flex justify-content-center align-items-center  " style="height:200px !important;">
+            
+                 <img class="mx-auto" style="max-width:100%; max-height:100%;"  src="/{{$images[0]}}" alt="First slide">>
+            
+    </div>
+    @endif
+    </br>
+    </br>
+    </br>
+            
+    <div class="row text-center">
+        <div class="col-12">
+            @if (Auth::user() !== null && (Auth::user()->isAdmin() || Auth::user()->isMod() || Auth::id() === $submission->userId))
+                <form action="/submissions/{{ $submission->plantSubmissionId }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="userId" value="{{Auth::id()}}">
+                    @method('DELETE')
+                    <button class="btn btn-primary">Delete submission</button>
+                </form>
             @endif
-</div>
         </div>
-            
-    <div class="col-12 text-center">
-        @if (Auth::user() !== null && ( Auth::user()->isAdmin() || $submission->userId = Auth::id() ) )
-            <form action="/submissions/{{ $submission->plantSubmissionId }}" method="POST">
-                @csrf
-                <input type="hidden" name="userId" value="{{Auth::id()}}">
-                @method('DELETE')
-                <button class="btn btn-primary">Delete submission</button>
-            </form>
-        @endif
     </div>        
     <div class="col-12 text-center">
 	    <h4>Location of Submission</h4>
@@ -137,21 +133,31 @@ if (is_dir($productDirectory)) {
                         </span>       
                         <p class="comment-txt more">{{$comment->body}}</p>
                         <div class="comment-meta">
-                            <button class="comment-reply reply-popup"><i class="fa fa-reply-all" aria-hidden="true"></i> Reply</button>         
+                            <button class="comment-reply reply-popup"><i class="fa fa-reply-all" aria-hidden="true"></i> Reply</button>
+                            @if (Auth::user() !== null && (Auth::user()->isAdmin() || Auth::user()->isMod() || Auth::id() === $comment->userId))
+                                <form action="/comments/{{$comment->commentId}}" method="POST">
+                                        @csrf
+                                        <input name="plantSubmissionId" type="hidden" value="{{ $submission->plantSubmissionId }}" />
+                                        <input name="userId" type="hidden" value="{{Auth::id()}}" />
+                                        <input name="parentId" type="hidden" value="{{$comment->commentId}}" />
+                                        @method('DELETE')
+                                        <button type="submit" class="comment-reply ">Delete</button>
+                                </form>  
+                            @endif       
                         </div>
                         <div class="comment-box add-comment reply-box">
                             
                             <span class="mx-10 my-10">
-                            <form action="/comments" method="POST">
-                                @csrf
-                                <input name="plantSubmissionId" type="hidden" value="{{ $submission->plantSubmissionId }}" />
-                                <input name="userId" type="hidden" value="{{Auth::id()}}" />
-                                <input name="parentId" type="hidden" value="{{$comment->commentId}}" />
-                                <input name="body" type="text" required />
-                                <button type="submit" class="btn btn-default">Reply</button>
-                                <button type="cancel" class="btn btn-default reply-popup">Cancel</button>
-                            </form>
-                            </span>
+                                <form action="/comments" method="POST">
+                                    @csrf
+                                    <input name="plantSubmissionId" type="hidden" value="{{ $submission->plantSubmissionId }}" />
+                                    <input name="userId" type="hidden" value="{{Auth::id()}}" />
+                                    <input name="parentId" type="hidden" value="{{$comment->commentId}}" />
+                                    <input name="body" type="text" required />
+                                    <button type="submit" class="btn btn-default">Reply</button>
+                                    <button type="cancel" class="btn btn-default reply-popup">Cancel</button>
+                                </form>                    
+                            </span> 
                         </div>
                     </div>
                 @endif
@@ -165,7 +171,17 @@ if (is_dir($productDirectory)) {
                         </span>       
                         <p class="comment-txt more">{{$child->body}}</p>
                         <div class="comment-meta">
-                            <button class="comment-reply reply-popup"><i class="fa fa-reply-all" aria-hidden="true"></i> Reply</button>         
+                            <button class="comment-reply reply-popup"><i class="fa fa-reply-all" aria-hidden="true"></i> Reply</button>
+                            @if (Auth::user() !== null && (Auth::user()->isAdmin() || Auth::user()->isMod() || Auth::id() === $child->userId))
+                                <form action="/comments/{{$child->commentId}}" method="POST">
+                                        @csrf
+                                        <input name="plantSubmissionId" type="hidden" value="{{ $submission->plantSubmissionId }}" />
+                                        <input name="userId" type="hidden" value="{{Auth::id()}}" />
+                                        <input name="parentId" type="hidden" value="{{$comment->commentId}}" />
+                                        @method('DELETE')
+                                        <button type="submit" class="comment-reply ">Delete</button>
+                                </form>
+                            @endif           
                         </div>
                         <div class="comment-box add-comment reply-box">
                             

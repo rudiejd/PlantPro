@@ -11,20 +11,20 @@
 	
     <form method="post" action="/submissions" enctype="multipart/form-data">
         @csrf
-		<div class="form-row" id="row1">
+		
 		<input type="hidden" value="{{Auth::id()}}" name="userId" />
 		<!-- plant id -->
 
-		<div class="form-group col-md-12" id="plantId">
+		<div class="form-group col-md-12 content-center" id="plantId">
 			<label for="plantId">Plant</label>
 			</br>
-			<select id="plantId" name="plantId" class="col-8 text-center" required>
+			<select id="plantId" name="plantId" class="form-control text-center" required>
 				@foreach ($plants as $plant)
 					<option value="{{$plant->plantId}}" class="text-center">{{$plant->commonName}}</option>
 				@endforeach
 			</select>
 		</div>
-		</div>
+		
 		<!-- title -->
 		<div class="form-group col-md-12" id="description">
 			<label for="description">Title</label>                                                                            

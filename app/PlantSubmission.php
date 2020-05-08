@@ -13,7 +13,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class PlantSubmission extends Model
 {
-    use SoftDeletes;
     protected $table = 'PlantSubmission';
     protected $primaryKey ='plantSubmissionId';
 }

@@ -3,7 +3,7 @@
 
 <div class="container">
     <div class="text-center">
-        <h1>Latest submissions</h1>
+        <h1>Submissions</h1>
         <h4><a href="/submissions/create">(Add Submission)</a></h4>
     </div>
     <table class="table">

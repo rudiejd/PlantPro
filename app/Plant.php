@@ -14,7 +14,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Plant extends Model
 {
-    use SoftDeletes;
     protected $table = 'Plant';
     protected $primaryKey ='plantId';
 }

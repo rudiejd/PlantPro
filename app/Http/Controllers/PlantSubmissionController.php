@@ -1,10 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Auth;
 use App;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use App\PlantSubmission;
 use DB;
 
@@ -115,11 +114,14 @@ class PlantSubmissionController extends Controller
         
         $id = $request->id;
         $submission = PlantSubmission::findOrFail($id);
-        if (sizeof(DB::table('Admin')->where('userId', '=', $request->userId)->get()) === 0 && $submission->userId != $request->userId) {
-            App::abort(403, 'Permission denied');
+        if (Auth::user()->isAdmin() || $submission->userId == Auth::id()) {
+            $submission->delete();
+            return redirect('/submissions');
         }
-        $submission->delete();
-        return redirect('/submissions');
+        else {
+            App:abort(403, 'Permission denied');
+        }
+        
 
     }
 

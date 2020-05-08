@@ -44,6 +44,9 @@
                     <ul class="navbar-nav mr-auto">
                         <a href="/plants" class="nav-link">Plants</a>
                         <a href="/submissions" class="nav-link">Submissions</a>
+                        @if (Auth::user() !== null && Auth::user()->isAdmin())
+                            <a href="/admin" class="nav-link">Admin</a>
+                        @endif
                     </ul>
 
                     <!-- Right Side Of Navbar -->

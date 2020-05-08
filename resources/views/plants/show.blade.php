@@ -52,7 +52,6 @@ $submissions = DB::table('PlantSubmission')->where('plantId','=',$plant->plantId
                 <tr>
                 <th scope="col">Upvotes</th>
                 <th scope="col">Title</th>
-                <th scope="col">Plant Scientific Name</th>
                 <th scope="col">Author</th>
                 <th scope="col">Upload Date</th>
                 </tr>
@@ -66,9 +65,6 @@ $submissions = DB::table('PlantSubmission')->where('plantId','=',$plant->plantId
                     <th>
                         <a href="/submissions/{{$submission->plantSubmissionId}}"> {{$submission->title}} </a>
                     </th>
-                    <td>
-                     {{DB::table('Plant')->where('plantId', $submission->plantId)->first()->genus}} {{DB::table('Plant')->where('plantId', $submission->plantId)->first()->species}} 
-                    </td>
                     <td>
                         {{DB::table('users')->where('userId', $submission->userId)->first()->email}}
                     </td>

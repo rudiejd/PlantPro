@@ -43,8 +43,28 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    /**
+     * Check if user is an administrator
+     * Note: If the user is the first user and the database and is not an admin, we make them an admin
+     * @return true if user is an admin, false if user is not an admin
+     */
     public function isAdmin() {
         if (sizeof(DB::table('Admin')->where('userId', '=', $this->userId)->get()) > 0 ) {
+            return true;
+        }
+        else {
+            if ($this->userId === 1) {
+                DB::table('Admin')->insert(['userId' => 1]);
+                return true;
+            }
+            else {
+                return false;
+            } 
+        }
+    }
+
+    public function isMod() {
+        if (sizeof(DB::table('Moderator')->where('userId', '=', $this->userId)->get()) > 0 ) {
             return true;
         }
         else {

@@ -32,8 +32,7 @@ class CreatePlantTable extends Migration
             $table->string('family');
             $table->string('genus');
             $table->string('species');
-	    $table->string('variety');
-	    $table->softDeletes();
+	        $table->string('variety');
             $table->tinyInteger('isDeleted')->default('0');
             $table->timestamps();
         });

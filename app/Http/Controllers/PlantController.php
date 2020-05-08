@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Auth;
 use DB;
 use Illuminate\Http\Request;
 use App\Plant;
@@ -63,7 +63,7 @@ class PlantController extends Controller
         }
 
         // redirect to the creation page and show a msg about the creation succeeding
-        return redirect('/plants/create')->with('msg', 'Plant submitted successfully.');
+        return redirect('/plants');
     }
 
      /** route for deleting a plant
@@ -71,14 +71,16 @@ class PlantController extends Controller
     * TODO: find out about soft delete and what happens when $plant->delete() fails
     */
     public function destroy(Request $request) {
-        if (sizeof(DB::table('Admin')->where('userId', '=', $request->userId)->get()) === 0) {
+        if (Auth::user()->isAdmin()) {
+            $id = $request->id;
+            $plant = Plant::findOrFail($id);
+            $plant->delete();
+            return redirect('/plants');
+        }
+        else {
             App::abort(403, 'Permission denied');
         }
-        $id = $request->id;
-        $plant = Plant::findOrFail($id);
-        $plant->delete();
-        return redirect('/plants');
-
+        
     }
 
 }

@@ -25,15 +25,14 @@ class CreatePlantSubmissionTable extends Migration
         Schema::create('PlantSubmission', function (Blueprint $table) {
             $table->id('plantSubmissionId');
             $table->bigInteger('userId')->unsigned();
-            $table->foreign('userId')->references('userId')->on('users');
+            $table->foreign('userId')->references('userId')->on('users')->onDelete('cascade');
             $table ->bigInteger('plantId')->unsigned();
             $table->bigInteger('upvotes');
-            $table->foreign('plantId')->references('plantId')->on('Plant'); 
+            $table->foreign('plantId')->references('plantId')->on('Plant')->onDelete('cascade'); 
             $table->double('latitude');
             $table->double('longitude');
             $table->string('title');
             $table->text('description');
-            $table->softDeletes();
             $table->timestamps();
         });
     }
