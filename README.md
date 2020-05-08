@@ -12,5 +12,13 @@ PlantPro is designed using Laravel, and is meant to run on an Ubuntu server (we 
    5. Navigate to http://localhost in your browser to view the PlantPro website
    6. Create the first account for this website. We have this account set up with administrator privileges by default.
    7. Enjoy! Further user documentation can be found in the docs folder of this repository and developer documentation can be found as comments within our code. Feel free to modify the starting code to your liking. 
+   
+ # Screenshots
+ 
+ ![Administration page](https://i.imgur.com/rALzK3x.png)
+ 
+ ![Example Submission](https://i.imgur.com/Oxlsa12.png)
+ 
+![Submissions Page with Pagination](https://i.imgur.com/YbC133P.png)
 
 
