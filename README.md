@@ -14,11 +14,13 @@ PlantPro is designed using Laravel, and is meant to run on an Ubuntu server (we 
    7. Enjoy! Further user documentation can be found in the docs folder of this repository and developer documentation can be found as comments within our code. Feel free to modify the starting code to your liking. 
    
  # Screenshots
- 
+ ## Administration page
  ![Administration page](https://i.imgur.com/rALzK3x.png)
- 
+ ## Example submission
  ![Example Submission](https://i.imgur.com/Oxlsa12.png)
- 
+ ## Submissions page (paginated every 15 entries)
 ![Submissions Page with Pagination](https://i.imgur.com/YbC133P.png)
+## Search page with advanced options
+![Search Page](https://i.imgur.com/NVYfryT.png)
 
 
