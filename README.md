@@ -1,6 +1,6 @@
 # Introduction and Motivation
 
-PlantPro is an application designed for helping field botanists and plant enthusiasts document sightings of new or existing plants. It provides a platform, similar to reddit, for submitting pictures and sighting locations for different plant while allowing users to engage with and provide feedback for these submissions. PlantPro was originally created as a final project for Dr. Matthew Stephan's Software Engineering course at Miami University. PlantPro is an open source software licensed under the MIT License. 
+PlantPro is an application designed for helping field botanists and plant enthusiasts document sightings of new or existing plants. It provides a platform, similar to reddit, for submitting pictures and sighting locations for different plant while allowing users to engage with and provide feedback for these submissions. PlantPro was originally created as a final project for Dr. Matthew Stephan's Software Engineering course at Miami University. PlantPro is open source software licensed under the MIT License. 
 
 # Getting Started
 
