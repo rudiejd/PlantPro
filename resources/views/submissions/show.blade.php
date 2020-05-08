@@ -59,7 +59,7 @@ if (is_dir($productDirectory)) {
                     Author: {{ DB::table('users')->where('userId', $submission['userId'])->first()->email   }}
                     </p>
                     <p class="col-3">
-                    Creation Date: {{$submission->created_at->format("m/d/y")}}
+                    Creation: {{$submission->created_at->format("m/d/y")}}
                     </p>
         </div>
             

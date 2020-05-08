@@ -9,10 +9,10 @@ use App\Comment;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-
+use Illuminate\Foundation\Testing\RefreshDatabase;
 class CommentTest extends TestCase {
     
-    use DatabaseMigrations;
+    use RefreshDatabase;
 
     public function setUp(): void {
         parent::setUp();
