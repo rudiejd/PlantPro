@@ -16,10 +16,10 @@ PlantPro is designed using Laravel, and is meant to run on an Ubuntu server (we 
  # Permissions System Explanation
  
  For our default implementation of PlantPro, we chose to have four different permission levels:
-    1. Admin: Can delete entire plants, promote moderators, demote moderators, promote administrators, and do everything that moderators can
-    2. Moderator: Can delete anyone's plant submissions (posts about plants) and delete anyone's comments on plant submissions, and do everything that users can. Can be promoted to become an administrator
-    3. User: Can create plant submissions, create plants, delete their own submissions, delete their own comments, and do everything guest can. Can be promoted to become a moderator or administrator.
-    4. Guest: Anyone who visits the site without logging in. Can view plants, plant submissions, and comments on plant submissions and search for plant submissions. Can register to become a user.
+ 1. Admin: Can delete entire plants, promote moderators, demote moderators, promote administrators, and do everything that moderators can
+ 2. Moderator: Can delete anyone's plant submissions (posts about plants) and delete anyone's comments on plant submissions, and do everything that users can. Can be promoted to become an administrator
+ 3. User: Can create plant submissions, create plants, delete their own submissions, delete their own comments, and do everything guest can. Can be promoted to become a moderator or administrator.
+4. Guest: Anyone who visits the site without logging in. Can view plants, plant submissions, and comments on plant submissions and search for plant submissions. Can register to become a user.
    
  If you want to use our software but don't like these permissions, feel free to change this permission scheme. We just thought that it would be useful to include this as a default. 
  
