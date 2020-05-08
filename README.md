@@ -23,9 +23,9 @@ PlantPro is designed using Laravel, and is meant to run on an Ubuntu server (we 
    
  If you want to use our software but don't like these permissions, feel free to change this permission scheme. We just thought that it would be useful to include this as a default. 
  
-# Artifacts
+# Process Artifacts
 
-Since this project was made for a software engineering class, we documented our progress in every iteration with a burndown chart and an agenda that we shared with a teaching assistant, who acted as our customer. You can view our artifacts from this project in a public google drive folder [here](https://drive.google.com/drive/folders/1jdhD_nS74_tMKVJsdqHthUxQ7yr7pQgN?usp=sharing)
+Since this project was made for a software engineering class, we documented our progress in every iteration with a burndown chart and an agenda that we shared with a teaching assistant, who acted as our customer. You can view our process artifacts from each iteration in this project in a public google drive folder [here](https://drive.google.com/drive/folders/1jdhD_nS74_tMKVJsdqHthUxQ7yr7pQgN?usp=sharing)
  
  # Screenshots
  ## Administration page
